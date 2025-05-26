@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Symptom History</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <style>
+        body {
+            background: #f1f4f8;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 60px auto;
+            background: #fff;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+        }
+
+        h2 {
+            text-align: center;
+            color: #333;
+            font-weight: 700;
+            margin-bottom: 30px;
+        }
+
+        table thead {
+            background-color: #007bff;
+            color: white;
+        }
+
+        table tbody tr:hover {
+            background-color: #f1f9ff;
+        }
+
+        .btn-dashboard {
+            display: block;
+            margin: 30px auto 0;
+            width: 220px;
+            background-color: #007bff;
+            color: white;
+            font-size: 16px;
+            border: none;
+            border-radius: 6px;
+            padding: 10px 20px;
+            text-align: center;
+            text-decoration: none;
+        }
+
+        .btn-dashboard:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h2>Your Symptom History</h2>
+
+    <table class="table table-bordered table-hover text-center">
+        <thead class="table-primary">
+            <tr>
+                <th>Date</th>
+                <th>Symptoms</th>
+                <th>Predicted Disease</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for entry in entries %}
+            <tr>
+                <td>{{ entry.timestamp.strftime("%Y-%m-%d %H:%M") }}</td>
+                <td>{{ entry.symptoms }}</td>
+                <td>{{ entry.predicted_disease }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="/dashboard" class="btn btn-dashboard">← Return to Dashboard</a>
+</div>
+
+<!-- Bootstrap Bundle JS -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

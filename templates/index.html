@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Drug Recommendation</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f5f7fa;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 750px;
+            margin: auto;
+            background: white;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .form-label {
+            font-weight: 600;
+            margin-top: 15px;
+        }
+
+        .btn-submit, .btn-voice {
+            margin-top: 20px;
+            font-size: 16px;
+            padding: 10px 20px;
+            border-radius: 6px;
+            border: none;
+            color: white;
+        }
+
+        .btn-submit {
+            background-color: #3498db;
+        }
+
+        .btn-submit:hover {
+            background-color: #2980b9;
+        }
+
+        .btn-voice {
+            background-color: #2ecc71;
+        }
+
+        .btn-voice:hover {
+            background-color: #27ae60;
+        }
+
+        .message {
+            color: red;
+            font-weight: bold;
+            margin-top: 15px;
+        }
+
+        .user-info {
+            background-color: #e8f0fe;
+            padding: 15px;
+            border-left: 6px solid #3498db;
+            margin-bottom: 20px;
+            border-radius: 8px;
+        }
+
+        .user-info h5 {
+            margin: 0;
+            font-weight: 600;
+        }
+
+        .form-control:focus {
+            border-color: #3498db;
+            box-shadow: 0 0 0 0.2rem rgba(52, 152, 219, 0.25);
+        }
+
+        #listening-indicator {
+            font-size: 14px;
+            color: green;
+            margin-top: 5px;
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        {% if session['name'] and session['user_id'] %}
+        <div class="user-info">
+            <h5>👋 Welcome, {{ session['name'] }}</h5>
+            <p><strong>Your Unique ID:</strong> {{ session['user_id'] }}</p>
+        </div>
+        {% endif %}
+
+        <h2 class="text-center mb-4">Drug Recommendation System</h2>
+        <a href="http://localhost:8501" target="_blank" class="btn btn-primary mt-3">
+            Try AI Medical Diagnosis
+        </a>
+
+        {% if message %}
+            <p class="message">{{ message }}</p>
+        {% endif %}
+
+        <form method="POST" novalidate>
+            <div class="mb-3">
+                <label for="age" class="form-label">Age:</label>
+                <input type="number" name="age" id="age" class="form-control" required min="1" placeholder="Enter your age">
+            </div>
+
+            <div class="mb-3">
+                <label for="gender" class="form-label">Gender:</label>
+                <select name="gender" id="gender" class="form-select" required>
+                    <option value="">Select gender</option>
+                    <option value="Male">Male</option>
+                    <option value="Female">Female</option>
+                    <option value="Other">Other</option>
+                </select>
+            </div>
+
+            <div class="mb-3">
+                <label for="symptoms" class="form-label">Enter Symptoms (comma-separated):</label>
+                <div class="input-group">
+                    <input type="text" id="symptoms" name="symptoms" placeholder="e.g., headache, fever, cough" class="form-control" required>
+                    <button type="button" class="btn btn-voice" onclick="startSpeechRecognition()" aria-label="Voice input for symptoms">🎤 Speak</button>
+                </div>
+                <div id="listening-indicator">🎙️ Listening...</div>
+            </div>
+
+            <div class="mb-3">
+                <label for="pain_intensity" class="form-label">Pain Intensity:</label>
+                <select name="pain_intensity" id="pain_intensity" class="form-select" required>
+                    <option value="">Select</option>
+                    <option value="low">Low</option>
+                    <option value="medium">Medium</option>
+                    <option value="high">High</option>
+                </select>
+            </div>
+
+            <div class="mb-3">
+                <label for="duration_days" class="form-label">Duration of Symptoms (in days):</label>
+                <input type="number" name="duration_days" id="duration_days" class="form-control" min="1" required placeholder="e.g., 3">
+            </div>
+
+            <input type="submit" class="btn btn-submit w-100" value="Predict">
+        </form>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        function startSpeechRecognition() {
+            const indicator = document.getElementById("listening-indicator");
+            if (!('webkitSpeechRecognition' in window || 'SpeechRecognition' in window)) {
+                alert("Speech recognition is not supported by your browser.");
+                return;
+            }
+
+            const recognition = new (window.SpeechRecognition || window.webkitSpeechRecognition)();
+            recognition.lang = 'en-US';
+
+            recognition.onstart = function () {
+                indicator.style.display = 'block';
+            };
+
+            recognition.onresult = function (event) {
+                document.getElementById("symptoms").value = event.results[0][0].transcript;
+                indicator.style.display = 'none';
+            };
+
+            recognition.onerror = function (event) {
+                alert("Speech recognition error: " + event.error);
+                indicator.style.display = 'none';
+            };
+
+            recognition.onend = function () {
+                indicator.style.display = 'none';
+            };
+
+            recognition.start();
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Home | Drug Recommendation System</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(to right, #74ebd5, #ACB6E5);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .navbar {
+            background-color: #2c3e50;
+        }
+
+        .navbar-brand, .nav-link {
+            color: white !important;
+            font-weight: bold;
+        }
+
+        .hero-section {
+            text-align: center;
+            color: white;
+            padding: 100px 20px;
+            background: linear-gradient(to right, #6a11cb, #2575fc);
+        }
+
+        .hero-section h1 {
+            font-size: 3rem;
+            font-weight: bold;
+        }
+
+        .hero-section p {
+            font-size: 1.25rem;
+            margin-top: 20px;
+        }
+
+        .btn-get-started {
+            margin-top: 30px;
+            padding: 12px 30px;
+            font-size: 1.2rem;
+            border-radius: 8px;
+            background-color: #f39c12;
+            border: none;
+            color: white;
+            transition: background 0.3s ease-in-out;
+        }
+
+        .btn-get-started:hover {
+            background-color: #d68910;
+        }
+
+        .features {
+            padding: 50px 20px;
+            background-color: #ffffff;
+            text-align: center;
+        }
+
+        .features h2 {
+            margin-bottom: 40px;
+        }
+
+        .feature-box {
+            margin-bottom: 30px;
+        }
+
+        footer {
+            margin-top: auto;
+            text-align: center;
+            padding: 20px;
+            background-color: #2c3e50;
+            color: white;
+        }
+    </style>
+</head>
+<body>
+
+    <nav class="navbar navbar-expand-lg">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#">MedRecSys</a>
+            <div class="collapse navbar-collapse justify-content-end">
+                <ul class="navbar-nav">
+                    <li class="nav-item"><a class="nav-link" href="/login">Login</a></li>
+                    <li class="nav-item"><a class="nav-link" href="/signup">Register</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <section class="hero-section">
+        <div class="container">
+            <h1>Welcome to the Drug Recommendation System</h1>
+            <p>Enter your symptoms and get personalized disease predictions, medications, workouts, and diets.</p>
+            <a href="/login" class="btn btn-get-started">Get Started</a>
+        </div>
+    </section>
+
+    <section class="features">
+        <div class="container">
+            <h2>Why Use Our System?</h2>
+            <div class="row">
+                <div class="col-md-4 feature-box">
+                    <h4>Smart Diagnosis</h4>
+                    <p>AI-powered predictions based on your symptoms and history.</p>
+                </div>
+                <div class="col-md-4 feature-box">
+                    <h4>Personalized Advice</h4>
+                    <p>Tailored medications, workout routines, and diet suggestions.</p>
+                </div>
+                <div class="col-md-4 feature-box">
+                    <h4>Secure & Private</h4>
+                    <p>Your data is stored safely with user authentication support.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        &copy; 2025 MedRecSys. All rights reserved.
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
